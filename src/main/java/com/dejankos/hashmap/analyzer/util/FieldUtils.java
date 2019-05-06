@@ -29,7 +29,7 @@ public class FieldUtils {
         }
 
         if (!valueType.isAssignableFrom(value.getClass())) {
-            throw new IllegalStateException(
+            throw new IllegalArgumentException(
                     String.format(
                             "Cannot convert from %s to %s",
                             value.getClass().getSimpleName(),

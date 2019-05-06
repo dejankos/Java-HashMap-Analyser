@@ -7,6 +7,7 @@ Simple HashMap analyser which can give you an info about:
 - type of buckets (before conversion) - linked nodes or self balanced red black binary search tree
 
 
+
 # Examples 
 
 Analyze map usage 
@@ -24,7 +25,9 @@ HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, 
 HashMapMetadata<String, Integer> hashMapMetadata = analyzer.analyse(map);
 ```
 
-HashMapMetadata structure for given example
+HashMapMetadata structure for given example 
+<details><summary>Colapse to display structure</summary>
+
 ```
 HashMapMetadata{
     totalBucketsCount=16, 
@@ -60,6 +63,19 @@ HashMapMetadata{
                     }]}
         ]
 }
+```
+</details>
+
+Sort analysed data and check largest bucket
+
+```java
+HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
+HashMapMetadata<String, Integer> mapMetadata = analyzer.analyse(mapWithBucketCollision);
+
+BucketSorter.sort(mapMetadata);
+
+System.out.println(mapMetadata.getBucketsMetadata().stream().findFirst());
+
 ```
 
 #### More examples under /src/test/java

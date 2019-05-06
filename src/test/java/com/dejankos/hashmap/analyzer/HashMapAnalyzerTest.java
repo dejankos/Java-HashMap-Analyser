@@ -3,10 +3,13 @@ package com.dejankos.hashmap.analyzer;
 import com.dejankos.hashmap.analyzer.model.BucketMetadata;
 import com.dejankos.hashmap.analyzer.model.HashMapMetadata;
 import com.dejankos.hashmap.analyzer.model.NodeType;
+import com.dejankos.hashmap.analyzer.util.BucketSorter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashMapAnalyzerTest {
+
+    private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     @Test
     public void nullAndEmptyMap() {
@@ -62,6 +67,35 @@ public class HashMapAnalyzerTest {
 
         assertEquals(NodeType.TREE_NODE, bucketMetadata.getNodeType());
         assertEquals(150, bucketMetadata.getNodesData().size());
+    }
+
+    @DisplayName("should sort buckets")
+    @Test
+    public void sortBuckets() {
+        HashMap<String, Integer> map = new HashMap<>(150);
+        IntStream.range(0, 150)
+                .boxed()
+                .forEach(i -> map.put(randomize(ALPHA), i));
+
+        HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
+        HashMapMetadata<String, Integer> mapMetadata = analyzer.analyse(map);
+
+        BucketSorter.sort(mapMetadata);
+
+        assertTrue(mapMetadata.getTotalBucketsCount() > 150);
+        assertTrue(mapMetadata.getUsedBucketsCount() < 150);
+        assertTrue(mapMetadata.getBucketsMetadata().get(0).getNodesData().size() > 1);
+        assertEquals(1, mapMetadata.getBucketsMetadata().get(mapMetadata.getUsedBucketsCount() - 1).getNodesData().size());
+    }
+
+    private String randomize(String s) {
+        StringBuilder sb = new StringBuilder();
+        Random rnd = new Random();
+        while (sb.length() < s.length()) {
+            int index = (int) (rnd.nextFloat() * s.length());
+            sb.append(s.charAt(index));
+        }
+        return sb.toString();
     }
 
     public static class BadHashCodeClass {
