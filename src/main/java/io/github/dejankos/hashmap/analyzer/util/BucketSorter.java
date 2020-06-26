@@ -1,6 +1,6 @@
-package com.dejankos.hashmap.analyzer.util;
+package io.github.dejankos.hashmap.analyzer.util;
 
-import com.dejankos.hashmap.analyzer.model.HashMapMetadata;
+import io.github.dejankos.hashmap.analyzer.model.HashMapMetadata;
 
 public class BucketSorter {
 

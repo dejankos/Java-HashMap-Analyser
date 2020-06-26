@@ -1,4 +1,4 @@
-package com.dejankos.hashmap.analyzer.util;
+package io.github.dejankos.hashmap.analyzer.util;
 
 
 import java.lang.reflect.Field;

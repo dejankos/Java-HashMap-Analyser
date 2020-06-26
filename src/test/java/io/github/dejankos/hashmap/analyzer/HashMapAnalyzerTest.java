@@ -1,14 +1,13 @@
-package com.dejankos.hashmap.analyzer;
+package io.github.dejankos.hashmap.analyzer;
 
-import com.dejankos.hashmap.analyzer.model.BucketMetadata;
-import com.dejankos.hashmap.analyzer.model.HashMapMetadata;
-import com.dejankos.hashmap.analyzer.model.NodeType;
-import com.dejankos.hashmap.analyzer.util.BucketSorter;
+import io.github.dejankos.hashmap.analyzer.model.BucketMetadata;
+import io.github.dejankos.hashmap.analyzer.model.HashMapMetadata;
+import io.github.dejankos.hashmap.analyzer.model.NodeType;
+import io.github.dejankos.hashmap.analyzer.util.BucketSorter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 

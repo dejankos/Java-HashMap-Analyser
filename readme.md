@@ -18,7 +18,7 @@ map.put("a", 1);
 map.put("b", 2);
 map.put("c", 3);
 
-// new anylzer intance with key and value types
+// new analzer intance with key and value types
 HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
 
 // HashMapMetadata provides analyzed data

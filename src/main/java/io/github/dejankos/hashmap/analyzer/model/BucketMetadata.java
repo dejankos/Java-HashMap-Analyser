@@ -1,4 +1,4 @@
-package com.dejankos.hashmap.analyzer.model;
+package io.github.dejankos.hashmap.analyzer.model;
 
 import java.util.List;
 

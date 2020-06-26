@@ -1,8 +1,9 @@
-package com.dejankos.hashmap.analyzer.model;
+package io.github.dejankos.hashmap.analyzer.model;
 
 public enum NodeType {
     LINKED_LIST_NODE("Node"),
-    TREE_NODE("TreeNode");
+    TREE_NODE("TreeNode"),
+    TREE_BIN("TreeBin");
 
     private final String mapNodeName;
 

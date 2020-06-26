@@ -1,10 +1,11 @@
-package com.dejankos.hashmap.analyzer;
+package io.github.dejankos.hashmap.analyzer;
 
-import com.dejankos.hashmap.analyzer.model.BucketMetadata;
-import com.dejankos.hashmap.analyzer.model.HashMapMetadata;
-import com.dejankos.hashmap.analyzer.model.NodeData;
-import com.dejankos.hashmap.analyzer.model.NodeType;
-import com.dejankos.hashmap.analyzer.util.FieldUtils;
+
+import io.github.dejankos.hashmap.analyzer.model.BucketMetadata;
+import io.github.dejankos.hashmap.analyzer.model.HashMapMetadata;
+import io.github.dejankos.hashmap.analyzer.model.NodeData;
+import io.github.dejankos.hashmap.analyzer.model.NodeType;
+import io.github.dejankos.hashmap.analyzer.util.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
