@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/dejankos/Java-HashMap-Analyser.svg?branch=master)](https://travis-ci.com/dejankos/Java-HashMap-Analyser)
+
 # Java Hash Map Analyzer
 
 Simple HashMap analyser which can give you an info about:
@@ -77,6 +79,9 @@ BucketSorter.sort(mapMetadata);
 System.out.println(mapMetadata.getBucketsMetadata().stream().findFirst());
 
 ```
+
+Tested with OpenJDK 12 & 13.
+
 
 #### More examples under /src/test/java
 
