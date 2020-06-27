@@ -24,7 +24,7 @@ public class HashMapAnalyzerTest {
     public void nullAndEmptyMap() {
         HashMapAnalyzer<Object, Object> analyzer = new HashMapAnalyzer<>(Object.class, Object.class);
 
-        assertNull(analyzer.analyse(null));
+        assertNotNull(analyzer.analyse(null));
         assertNotNull(analyzer.analyse((new HashMap<>())));
     }
 
