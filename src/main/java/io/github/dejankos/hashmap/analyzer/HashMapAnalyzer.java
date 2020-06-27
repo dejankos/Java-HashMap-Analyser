@@ -31,11 +31,7 @@ public class HashMapAnalyzer<K, V> {
     }
 
     public HashMapMetadata<K, V> analyse(HashMap<K, V> map) {
-        if (isNull(map)) {
-            return null;
-        }
-
-        if (map.isEmpty()) {
+        if (map == null || map.isEmpty()) {
             //noinspection unchecked
             return (HashMapMetadata<K, V>) EMPTY;
         }
