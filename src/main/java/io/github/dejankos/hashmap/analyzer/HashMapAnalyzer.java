@@ -12,14 +12,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.IntStream;
 
 import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toList;
 
 public class HashMapAnalyzer<K, V> {
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private static final HashMapMetadata EMPTY = new HashMapMetadata(0, 0, emptyList());
 
     private final Class<K> keyClass;
@@ -38,38 +41,38 @@ public class HashMapAnalyzer<K, V> {
 
         try {
             Object[] table = FieldUtils.readField(map, "table", Object[].class);
-
-            LinkedList<BucketMetadata<K, V>> collect = new LinkedList<>();
-            for (int i = 0; i < table.length; i++) {
-                BucketMetadata<K, V> bucket = analyseBucket(i, table[i], map);
-                if (nonNull(bucket)) {
-                    collect.add(bucket);
-                }
-            }
+            List<BucketMetadata<K, V>> bucketsMetadata = IntStream.range(0, table.length)
+                    .mapToObj(i -> analyseBucket(i, table[i], map))
+                    .filter(Objects::nonNull)
+                    .collect(toList());
 
             return new HashMapMetadata<>(
                     table.length,
-                    collect.size(),
-                    collect
+                    bucketsMetadata.size(),
+                    bucketsMetadata
             );
-        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    private BucketMetadata<K, V> analyseBucket(int bucketIndex, Object bucket, HashMap<K, V> map) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        if (isNull(bucket)) {
+    private BucketMetadata<K, V> analyseBucket(int bucketIndex, Object bucket, HashMap<K, V> map) {
+        if (bucket == null) {
             return null;
         }
 
-        NodeType bucketType = NodeType.find(bucket.getClass().getSimpleName());
-        switch (bucketType) {
-            case TREE_NODE:
-                return analyseTreeNodeBucket(bucketIndex, bucket, map);
-            case LINKED_LIST_NODE:
-                return analyseListNodeBucket(bucketIndex, bucket, NodeType.LINKED_LIST_NODE);
-            default:
-                throw new IllegalArgumentException("Bucket type not supported in HashMap, bucketType = " + bucketType);
+        try {
+            NodeType bucketType = NodeType.find(bucket.getClass().getSimpleName());
+            switch (bucketType) {
+                case TREE_NODE:
+                    return analyseTreeNodeBucket(bucketIndex, bucket, map);
+                case LINKED_LIST_NODE:
+                    return analyseListNodeBucket(bucketIndex, bucket, NodeType.LINKED_LIST_NODE);
+                default:
+                    throw new IllegalArgumentException("Bucket type not supported in HashMap, bucketType = " + bucketType);
+            }
+        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

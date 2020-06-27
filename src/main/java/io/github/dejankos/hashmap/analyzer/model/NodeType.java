@@ -1,9 +1,22 @@
 package io.github.dejankos.hashmap.analyzer.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.util.Optional.ofNullable;
+
 public enum NodeType {
     LINKED_LIST_NODE("Node"),
     TREE_NODE("TreeNode"),
     TREE_BIN("TreeBin");
+
+    private static final Map<String, NodeType> lookup = new HashMap<>();
+
+    static {
+        for (NodeType nt : NodeType.values()) {
+            lookup.put(nt.mapNodeName, nt);
+        }
+    }
 
     private final String mapNodeName;
 
@@ -12,13 +25,7 @@ public enum NodeType {
     }
 
     public static NodeType find(String mapNodeName) {
-        for (NodeType value : NodeType.values()) {
-            if (mapNodeName.equals(value.mapNodeName)) {
-                return value;
-            }
-        }
-
-        throw new IllegalArgumentException("Node type not found for mapNodeName = " + mapNodeName);
+        return ofNullable(lookup.get(mapNodeName))
+                .orElseThrow(() -> new IllegalArgumentException("Node type not found for mapNodeName = " + mapNodeName));
     }
-
 }
