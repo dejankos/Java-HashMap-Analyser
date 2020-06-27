@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/dejankos/Java-HashMap-Analyser.svg?branch=master)](https://travis-ci.com/dejankos/Java-HashMap-Analyser)
-
+[![codecov](https://codecov.io/gh/dejankos/Java-HashMap-Analyser/branch/master/graph/badge.svg)](https://codecov.io/gh/dejankos/Java-HashMap-Analyser)
 # Java Hash Map Analyzer
 
 Simple HashMap analyser which can give you an info about:
