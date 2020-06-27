@@ -1,5 +1,6 @@
 language: java
 sudo: false # faster builds
+script: mvn clean verify
 jdk:
   - openjdk12
   - openjdk13
