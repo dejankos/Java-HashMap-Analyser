@@ -1,11 +1,11 @@
-package io.github.dejankos.hashmap.analyzer;
+package io.github.dejankos.hashmap.analyser;
 
 
-import io.github.dejankos.hashmap.analyzer.model.BucketMetadata;
-import io.github.dejankos.hashmap.analyzer.model.HashMapMetadata;
-import io.github.dejankos.hashmap.analyzer.model.NodeData;
-import io.github.dejankos.hashmap.analyzer.model.NodeType;
-import io.github.dejankos.hashmap.analyzer.util.FieldUtils;
+import io.github.dejankos.hashmap.analyser.model.BucketMetadata;
+import io.github.dejankos.hashmap.analyser.model.HashMapMetadata;
+import io.github.dejankos.hashmap.analyser.model.NodeData;
+import io.github.dejankos.hashmap.analyser.model.NodeType;
+import io.github.dejankos.hashmap.analyser.util.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +20,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
-public class HashMapAnalyzer<K, V> {
+public class HashMapAnalyser<K, V> {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static final HashMapMetadata EMPTY = new HashMapMetadata(0, 0, emptyList());
@@ -28,7 +28,7 @@ public class HashMapAnalyzer<K, V> {
     private final Class<K> keyClass;
     private final Class<V> valueClass;
 
-    public HashMapAnalyzer(Class<K> keyClass, Class<V> valueClass) {
+    public HashMapAnalyser(Class<K> keyClass, Class<V> valueClass) {
         this.keyClass = keyClass;
         this.valueClass = valueClass;
     }

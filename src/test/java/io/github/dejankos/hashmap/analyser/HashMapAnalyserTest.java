@@ -1,9 +1,9 @@
-package io.github.dejankos.hashmap.analyzer;
+package io.github.dejankos.hashmap.analyser;
 
-import io.github.dejankos.hashmap.analyzer.model.BucketMetadata;
-import io.github.dejankos.hashmap.analyzer.model.HashMapMetadata;
-import io.github.dejankos.hashmap.analyzer.model.NodeType;
-import io.github.dejankos.hashmap.analyzer.util.BucketSorter;
+import io.github.dejankos.hashmap.analyser.model.BucketMetadata;
+import io.github.dejankos.hashmap.analyser.model.HashMapMetadata;
+import io.github.dejankos.hashmap.analyser.model.NodeType;
+import io.github.dejankos.hashmap.analyser.util.BucketSorter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HashMapAnalyzerTest {
+public class HashMapAnalyserTest {
 
     private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     @Test
     public void nullAndEmptyMap() {
-        HashMapAnalyzer<Object, Object> analyzer = new HashMapAnalyzer<>(Object.class, Object.class);
+        HashMapAnalyser<Object, Object> analyser = new HashMapAnalyser<>(Object.class, Object.class);
 
-        assertNotNull(analyzer.analyse(null));
-        assertNotNull(analyzer.analyse((new HashMap<>())));
+        assertNotNull(analyser.analyse(null));
+        assertNotNull(analyser.analyse((new HashMap<>())));
     }
 
     @DisplayName("should have optimal bucket distribution ")
@@ -35,8 +35,8 @@ public class HashMapAnalyzerTest {
                 .boxed()
                 .forEach(i -> map.put(i, i));
 
-        HashMapAnalyzer<Integer, Integer> analyzer = new HashMapAnalyzer<>(Integer.class, Integer.class);
-        HashMapMetadata<Integer, Integer> mapMetadata = analyzer.analyse(map);
+        HashMapAnalyser<Integer, Integer> analyser = new HashMapAnalyser<>(Integer.class, Integer.class);
+        HashMapMetadata<Integer, Integer> mapMetadata = analyser.analyse(map);
 
         assertEquals(256, mapMetadata.getTotalBucketsCount());
         assertEquals(150, mapMetadata.getUsedBucketsCount());
@@ -55,8 +55,8 @@ public class HashMapAnalyzerTest {
                 .boxed()
                 .forEach(i -> map.put(new BadHashCodeClass(i), i));
 
-        HashMapAnalyzer<BadHashCodeClass, Integer> analyzer = new HashMapAnalyzer<>(BadHashCodeClass.class, Integer.class);
-        HashMapMetadata<BadHashCodeClass, Integer> mapMetadata = analyzer.analyse(map);
+        HashMapAnalyser<BadHashCodeClass, Integer> analyser = new HashMapAnalyser<>(BadHashCodeClass.class, Integer.class);
+        HashMapMetadata<BadHashCodeClass, Integer> mapMetadata = analyser.analyse(map);
 
         assertEquals(256, mapMetadata.getTotalBucketsCount());
         assertEquals(1, mapMetadata.getUsedBucketsCount());
@@ -75,8 +75,8 @@ public class HashMapAnalyzerTest {
                 .boxed()
                 .forEach(i -> map.put(randomize(ALPHA), i));
 
-        HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
-        HashMapMetadata<String, Integer> mapMetadata = analyzer.analyse(map);
+        HashMapAnalyser<String, Integer> analyser = new HashMapAnalyser<>(String.class, Integer.class);
+        HashMapMetadata<String, Integer> mapMetadata = analyser.analyse(map);
 
         BucketSorter.sort(mapMetadata);
 
@@ -84,6 +84,15 @@ public class HashMapAnalyzerTest {
         assertTrue(mapMetadata.getUsedBucketsCount() < 150);
         assertTrue(mapMetadata.getBucketsMetadata().get(0).getNodesData().size() > 1);
         assertEquals(1, mapMetadata.getBucketsMetadata().get(mapMetadata.getUsedBucketsCount() - 1).getNodesData().size());
+    }
+
+    @Test
+    public void testing() {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("a", 1);
+        map.put("ab", 2);
+        HashMapAnalyser<String, Integer> analyser = new HashMapAnalyser<>(String.class, Integer.class);
+        System.out.println(analyser.analyse(map));
     }
 
     private String randomize(String s) {

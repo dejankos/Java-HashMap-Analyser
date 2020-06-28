@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/dejankos/Java-HashMap-Analyser.svg?branch=master)](https://travis-ci.com/dejankos/Java-HashMap-Analyser)
 [![codecov](https://codecov.io/gh/dejankos/Java-HashMap-Analyser/branch/master/graph/badge.svg)](https://codecov.io/gh/dejankos/Java-HashMap-Analyser)
-# Java Hash Map Analyzer
+# Java Hash Map Analyser
 
 Simple HashMap analyser which can give you an info about:
 - underlying hash table size (bucket count)
@@ -12,7 +12,7 @@ Simple HashMap analyser which can give you an info about:
 
 # Examples 
 
-Analyze map usage 
+Analyse map usage 
 
 ```java
 HashMap<String, Integer> map = new HashMap<>();
@@ -20,11 +20,11 @@ map.put("a", 1);
 map.put("b", 2);
 map.put("c", 3);
 
-// new analyzer intance with key and value types
-HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
+// new analyser intance with key and value types
+HashMapAnalyser<String, Integer> analszer = new HashMapAnalszer<>(String.class, Integer.class);
 
-// HashMapMetadata provides analyzed data
-HashMapMetadata<String, Integer> hashMapMetadata = analyzer.analyse(map);
+// HashMapMetadata provides analysed data
+HashMapMetadata<String, Integer> hashMapMetadata = analyser.analyse(map);
 ```
 
 HashMapMetadata structure for given example 
@@ -71,8 +71,8 @@ HashMapMetadata{
 Sort analysed data and check largest bucket
 
 ```java
-HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
-HashMapMetadata<String, Integer> mapMetadata = analyzer.analyse(mapWithBucketCollision);
+HashMapAnalszer<String, Integer> analyser = new HashMapAnalyser<>(String.class, Integer.class);
+HashMapMetadata<String, Integer> mapMetadata = analyser.analyse(mapWithBucketCollision);
 
 BucketSorter.sort(mapMetadata);
 

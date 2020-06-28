@@ -1,4 +1,4 @@
-package io.github.dejankos.hashmap.analyzer.model;
+package io.github.dejankos.hashmap.analyser.model;
 
 public class NodeData<K, V> {
     private final K key;
