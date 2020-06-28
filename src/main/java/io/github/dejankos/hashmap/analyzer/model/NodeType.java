@@ -7,8 +7,7 @@ import static java.util.Optional.ofNullable;
 
 public enum NodeType {
     LINKED_LIST_NODE("Node"),
-    TREE_NODE("TreeNode"),
-    TREE_BIN("TreeBin");
+    TREE_NODE("TreeNode");
 
     private static final Map<String, NodeType> lookup = new HashMap<>();
 

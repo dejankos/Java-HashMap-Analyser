@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashMapAnalyzerTest {
@@ -31,7 +30,7 @@ public class HashMapAnalyzerTest {
     @DisplayName("should have optimal bucket distribution ")
     @Test
     public void listNodeBuckets() {
-        HashMap<Integer, Integer> map = new HashMap<>(150);
+        HashMap<Integer, Integer> map = new HashMap<>(256);
         IntStream.range(0, 150)
                 .boxed()
                 .forEach(i -> map.put(i, i));
@@ -39,7 +38,7 @@ public class HashMapAnalyzerTest {
         HashMapAnalyzer<Integer, Integer> analyzer = new HashMapAnalyzer<>(Integer.class, Integer.class);
         HashMapMetadata<Integer, Integer> mapMetadata = analyzer.analyse(map);
 
-        assertTrue(mapMetadata.getTotalBucketsCount() > 150);
+        assertEquals(256, mapMetadata.getTotalBucketsCount());
         assertEquals(150, mapMetadata.getUsedBucketsCount());
 
         mapMetadata.getBucketsMetadata().forEach(bucketMetadata -> {
@@ -51,7 +50,7 @@ public class HashMapAnalyzerTest {
     @DisplayName("should have one balanced binary search tree as bucket")
     @Test
     public void treeNodeBuckets() {
-        HashMap<BadHashCodeClass, Integer> map = new HashMap<>(150);
+        HashMap<BadHashCodeClass, Integer> map = new HashMap<>(256);
         IntStream.range(0, 150)
                 .boxed()
                 .forEach(i -> map.put(new BadHashCodeClass(i), i));
@@ -59,7 +58,7 @@ public class HashMapAnalyzerTest {
         HashMapAnalyzer<BadHashCodeClass, Integer> analyzer = new HashMapAnalyzer<>(BadHashCodeClass.class, Integer.class);
         HashMapMetadata<BadHashCodeClass, Integer> mapMetadata = analyzer.analyse(map);
 
-        assertTrue(mapMetadata.getTotalBucketsCount() > 150);
+        assertEquals(256, mapMetadata.getTotalBucketsCount());
         assertEquals(1, mapMetadata.getUsedBucketsCount());
 
         BucketMetadata<BadHashCodeClass, Integer> bucketMetadata = mapMetadata.getBucketsMetadata().get(0);
@@ -85,6 +84,15 @@ public class HashMapAnalyzerTest {
         assertTrue(mapMetadata.getUsedBucketsCount() < 150);
         assertTrue(mapMetadata.getBucketsMetadata().get(0).getNodesData().size() > 1);
         assertEquals(1, mapMetadata.getBucketsMetadata().get(mapMetadata.getUsedBucketsCount() - 1).getNodesData().size());
+    }
+
+    @Test
+    public void testing() {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("a", 1);
+        map.put("ab", 2);
+        HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
+        System.out.println(analyzer.analyse(map));
     }
 
     private String randomize(String s) {

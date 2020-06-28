@@ -5,7 +5,7 @@
 Simple HashMap analyser which can give you an info about:
 - underlying hash table size (bucket count)
 - used bucket and indexes
-- data stored in buckets with hash - for simplicity data from bucket is converted to Linked List 
+- data stored in buckets with hash - for simplicity data from bucket is converted to Array List 
 - type of buckets (before conversion) - linked nodes or self balanced red black binary search tree
 
 

@@ -10,8 +10,8 @@ import io.github.dejankos.hashmap.analyzer.util.FieldUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -89,7 +89,7 @@ public class HashMapAnalyzer<K, V> {
             return null;
         }
 
-        LinkedList<NodeData<K, V>> collect = new LinkedList<>();
+        List<NodeData<K, V>> collect = new ArrayList<>();
         NodeData<K, V> root = readNode(bucket);
         collect.add(root);
 
