@@ -86,15 +86,6 @@ public class HashMapAnalyzerTest {
         assertEquals(1, mapMetadata.getBucketsMetadata().get(mapMetadata.getUsedBucketsCount() - 1).getNodesData().size());
     }
 
-    @Test
-    public void testing() {
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("a", 1);
-        map.put("ab", 2);
-        HashMapAnalyzer<String, Integer> analyzer = new HashMapAnalyzer<>(String.class, Integer.class);
-        System.out.println(analyzer.analyse(map));
-    }
-
     private String randomize(String s) {
         StringBuilder sb = new StringBuilder();
         Random rnd = new Random();
