@@ -1,4 +1,4 @@
-![Build status](https://github.com/dejankos/Java-HashMap-Analyser/actions/workflows/ci.yml/badge.svg?branch=main)
+[![CI Status](https://github.com/dejankos/Java-HashMap-Analyser/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dejankos/Java-HashMap-Analyser/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/dejankos/Java-HashMap-Analyser/branch/master/graph/badge.svg)](https://codecov.io/gh/dejankos/Java-HashMap-Analyser)
 # Java Hash Map Analyser
 
@@ -80,7 +80,7 @@ System.out.println(mapMetadata.getBucketsMetadata().stream().findFirst());
 
 ```
 
-Tested with OpenJDK 12 & 13.
+Tested with OpenJDK `[ '12', '13', '15' ]`.
 
 
 #### More examples under /src/test/java
