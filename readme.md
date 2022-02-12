@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/dejankos/Java-HashMap-Analyser.svg?branch=master)](https://travis-ci.com/dejankos/Java-HashMap-Analyser)
+![Build status](https://github.com/dejankos/Java-HashMap-Analyser/actions/workflows/ci.yml/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/dejankos/Java-HashMap-Analyser/branch/master/graph/badge.svg)](https://codecov.io/gh/dejankos/Java-HashMap-Analyser)
 # Java Hash Map Analyser
 
