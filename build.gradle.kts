@@ -19,12 +19,13 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 jacoco {
     toolVersion = "0.8.8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
@@ -32,11 +33,5 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         csv.required.set(true)
     }
-}
-
-tasks.test {
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-}
-tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
+    dependsOn(tasks.test)
 }
