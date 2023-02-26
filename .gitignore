@@ -40,5 +40,8 @@ local.properties
 # PDT-specific
 .buildpath
 
-### Maven ###
-target/
+### Gradle ###
+.gradle
+**/build/
+!src/**/build/
+
